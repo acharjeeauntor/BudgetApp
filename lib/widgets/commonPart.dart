@@ -33,8 +33,6 @@ class CommonPart extends StatelessWidget {
           )
         ],
       ),
-      width: size.width,
-      height: size.height * 0.4,
       decoration: BoxDecoration(
           color: containerColor,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(80.0))),

@@ -1,7 +1,13 @@
+import 'dart:convert';
+
 import 'package:budgetapp/helpers/color.dart';
+import 'package:budgetapp/screens/dashboardScreen.dart';
+import 'package:budgetapp/screens/resetpasswordScreen.dart';
 import 'package:budgetapp/screens/signupScreen.dart';
 import 'package:budgetapp/widgets/commonPart.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:toast/toast.dart';
 
 class SigninScreen extends StatefulWidget {
   static const routeName = 'signin';
@@ -13,19 +19,32 @@ class SigninScreen extends StatefulWidget {
 class _SigninScreenState extends State<SigninScreen> {
   var formKey = GlobalKey<FormState>();
 
-  var email, password;
-  var emailCtrl = TextEditingController();
-  var passwordCtrl = TextEditingController();
+  var _email, _password;
 
-  void handleSubmit() {
+  void handleSubmit() async {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
     }
 
-    print(email);
-    print(password);
+    print(_email);
+    print(_password);
 
     // post request
+
+    final response = await http.post("http://10.0.2.2:5000/users/login",
+        body: {"email": _email, "password": _password});
+
+    var responseData = json.decode(response.body);
+    print(responseData);
+
+    if (response.statusCode == 200) {
+      Navigator.of(context).pushReplacementNamed(DashboardScreen.routename);
+    } else if (response.statusCode == 404) {
+      Toast.show("invalid Email Or Password", context,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.TOP,
+          backgroundColor: const Color(0xff8c0000));
+    }
   }
 
   @override
@@ -33,114 +52,107 @@ class _SigninScreenState extends State<SigninScreen> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: ListView(
+      body: Column(
         children: [
-          Column(
-            children: [
-              CommonPart("SignIn"),
-              Container(
-                width: size.width,
-                height: size.height * 0.6,
-                child: ListView(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(30.0),
-                      child: Form(
-                        key: formKey,
-                        child: Column(
-                          children: [
-                            TextFormField(
-                              controller: emailCtrl,
-                              decoration: InputDecoration(
-                                  labelText: 'Enter Your Email',
-                                  prefixIcon: Icon(Icons.mail)),
-                              keyboardType: TextInputType.emailAddress,
-                              validator: (value) {
-                                if (!value.contains("@")) {
-                                  "please Give a valid Email Address";
-                                }
-                              },
-                              onSaved: (value) {
-                                this.email = value;
-                              },
-                            ),
-                            TextFormField(
-                              obscureText: true,
-                              controller: passwordCtrl,
-                              decoration: InputDecoration(
-                                  labelText: 'Enter Your Password',
-                                  prefixIcon: Icon(Icons.lock)),
-                              validator: (value) {
-                                if (value.length < 6)
-                                  return ("Password at least 6 Character");
-                              },
-                              onSaved: (value) {
-                                this.password = value;
-                              },
-                            ),
-                            GestureDetector(
-                              onTap: null,
-                              child: Container(
-                                margin: EdgeInsets.only(
-                                    right: 10, top: 10, bottom: 10),
-                                child: Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: Text(
-                                    "Forget Password?",
-                                    style: TextStyle(color: Colors.grey[600]),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              width: double.infinity,
-                              child: RaisedButton(
-                                color: containerColor,
-                                onPressed: handleSubmit,
+          Expanded(flex: 2, child: CommonPart("SignIn")),
+          Expanded(
+            flex: 3,
+            child: Container(
+              child: ListView(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            decoration: InputDecoration(
+                                labelText: 'Enter Your Email',
+                                prefixIcon: Icon(Icons.mail)),
+                            keyboardType: TextInputType.emailAddress,
+                            validator: (value) => !value.contains("@")
+                                ? "Enter a valid email"
+                                : null,
+                            onSaved: (value) => _email = value,
+                          ),
+                          TextFormField(
+                            obscureText: true,
+                            decoration: InputDecoration(
+                                labelText: 'Enter Your Password',
+                                prefixIcon: Icon(Icons.lock)),
+                            validator: (value) => value.length < 6
+                                ? "Password at least 6 Character"
+                                : null,
+                            onSaved: (value) => _password = value,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ResetPasswordScreen()));
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                  right: 10, top: 10, bottom: 10),
+                              child: Align(
+                                alignment: Alignment.bottomRight,
                                 child: Text(
-                                  "SignIn",
-                                  style: TextStyle(
-                                    fontSize: 17.0,
-                                  ),
+                                  "Forget Password?",
+                                  style: TextStyle(color: Colors.grey[600]),
                                 ),
                               ),
                             ),
-                            Container(
-                              margin: EdgeInsets.only(top: 40),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Don't have an account?",
-                                    style: TextStyle(fontSize: 17),
-                                  ),
-                                  FlatButton(
-                                      onPressed: () {
-                                        Navigator.of(context)
-                                            .pushReplacementNamed(
-                                          SignupScreen.routeName,
-                                        );
-                                      },
-                                      child: Text(
-                                        "SignUp",
-                                        style: TextStyle(
-                                            color: containerColor,
-                                            fontSize: 17),
-                                      ))
-                                ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            width: double.infinity,
+                            child: RaisedButton(
+                              color: containerColor,
+                              onPressed: handleSubmit,
+                              child: Text(
+                                "SignIn",
+                                style: TextStyle(
+                                  fontSize: 17.0,
+                                ),
                               ),
-                            )
-                          ],
-                        ),
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Don't have an account?",
+                                  style: TextStyle(fontSize: 17),
+                                ),
+                                FlatButton(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pushReplacementNamed(
+                                        SignupScreen.routeName,
+                                      );
+                                    },
+                                    child: Text(
+                                      "SignUp",
+                                      style: TextStyle(
+                                          color: containerColor, fontSize: 17),
+                                    ))
+                              ],
+                            ),
+                          )
+                        ],
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
-            ],
+            ),
           ),
         ],
       ),

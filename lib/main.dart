@@ -1,3 +1,4 @@
+import 'package:budgetapp/screens/dashboardScreen.dart';
 import 'package:budgetapp/screens/signinScreen.dart';
 import 'package:budgetapp/screens/signupScreen.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
       initialRoute: SigninScreen.routeName,
       routes: {
         SignupScreen.routeName: (ctx) => SignupScreen(),
-        SigninScreen.routeName: (ctx) => SigninScreen()
+        SigninScreen.routeName: (ctx) => SigninScreen(),
+        DashboardScreen.routename:(ctx)=>DashboardScreen()
       },
     );
   }
