@@ -62,7 +62,7 @@ class _SigninScreenState extends State<SigninScreen> {
         Toast.show("invalid Email Or Password", context,
             duration: Toast.LENGTH_LONG,
             gravity: Toast.TOP,
-            backgroundColor: const Color(0xff8c0000));
+            backgroundColor: const Color(0xffEC7063));
       }
     }
 

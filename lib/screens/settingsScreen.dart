@@ -1,4 +1,5 @@
 import 'package:budgetapp/providers/user.dart';
+import 'package:budgetapp/screens/changePasswordScreen.dart';
 import 'package:budgetapp/screens/signinScreen.dart';
 import 'package:budgetapp/screens/signupScreen.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,9 @@ class _SettingScreenState extends State<SettingScreen> {
             ListTile(
               dense: true,
               contentPadding: EdgeInsets.only(left: 0.0, top: 4, bottom: 0),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(ChangePasswordScreen.routeName);
+              },
               title: Text('Change Password',
                   style: TextStyle(fontSize: 18.0, color: Color(0Xff5e5e66))),
             ),
@@ -128,11 +131,15 @@ class _SettingScreenState extends State<SettingScreen> {
       Navigator.of(context).pushReplacementNamed(
         SignupScreen.routeName,
       );
+      Toast.show("Account Delete Successfully", context,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.TOP,
+          backgroundColor: const Color(0xff48C9B0));
     } else {
       Toast.show("Some Error Show Please Try Again Later", context,
           duration: Toast.LENGTH_LONG,
           gravity: Toast.TOP,
-          backgroundColor: const Color(0xff8c0000));
+          backgroundColor: const Color(0xffEC7063));
     }
   }
 

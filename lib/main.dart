@@ -1,3 +1,4 @@
+import 'package:budgetapp/screens/changePasswordScreen.dart';
 import 'package:budgetapp/screens/dashboardScreen.dart';
 import 'package:budgetapp/screens/settingsScreen.dart';
 import 'package:budgetapp/screens/signinScreen.dart';
@@ -33,7 +34,8 @@ class MyApp extends StatelessWidget {
           SigninScreen.routeName: (ctx) => SigninScreen(),
           DashboardScreen.routename: (ctx) => DashboardScreen(),
           DashboardNavigation.routeName: (ctx) => DashboardNavigation(),
-          SettingScreen.routeName: (ctx) => SettingScreen()
+          SettingScreen.routeName: (ctx) => SettingScreen(),
+          ChangePasswordScreen.routeName: (ctx) => ChangePasswordScreen()
         },
       ),
     );

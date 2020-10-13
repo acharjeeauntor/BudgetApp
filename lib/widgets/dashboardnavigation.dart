@@ -31,7 +31,7 @@ class _DashboardNavigationState extends State<DashboardNavigation> {
       body: _pages[_selectedPageIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedPageIndex,
-          backgroundColor: Colors.yellow,
+          backgroundColor: const Color(0xffF4D03F),
           elevation: 15.0,
           selectedItemColor: Colors.pink,
           selectedFontSize: 15,

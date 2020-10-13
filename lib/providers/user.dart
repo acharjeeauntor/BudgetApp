@@ -10,6 +10,11 @@ class User with ChangeNotifier {
     notifyListeners();
   }
 
+  set removeToken(newToken) {
+    _token = '';
+    notifyListeners();
+  }
+
   String get authToken => _token;
   String get userId {
     Map<String, dynamic> decodedToken = JwtDecoder.decode(_token);
