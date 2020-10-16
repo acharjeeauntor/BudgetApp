@@ -1,3 +1,4 @@
+import 'package:budgetapp/providers/incomes.dart';
 import 'package:budgetapp/screens/changePasswordScreen.dart';
 import 'package:budgetapp/screens/dashboardScreen.dart';
 import 'package:budgetapp/screens/settingsScreen.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => User()),
+        ChangeNotifierProvider(create: (_) => Incomes())
       ],
       child: MaterialApp(
         title: 'Budget App',
@@ -28,6 +30,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         debugShowCheckedModeBanner: false,
+        //initialRoute: DashboardNavigation.routeName,
         initialRoute: SigninScreen.routeName,
         routes: {
           SignupScreen.routeName: (ctx) => SignupScreen(),

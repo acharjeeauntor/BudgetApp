@@ -1,7 +1,10 @@
+import 'package:budgetapp/providers/incomes.dart';
+import 'package:budgetapp/providers/user.dart';
 import 'package:budgetapp/screens/dashboardScreen.dart';
 import 'package:budgetapp/screens/settingsScreen.dart';
 import 'package:budgetapp/screens/statemantScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DashboardNavigation extends StatefulWidget {
   static const routeName = 'dashboardnavigation';
@@ -11,6 +14,16 @@ class DashboardNavigation extends StatefulWidget {
 }
 
 class _DashboardNavigationState extends State<DashboardNavigation> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final userProvider = Provider.of<User>(context, listen: false);
+    final incomeProvider = Provider.of<Incomes>(context, listen: false);
+
+    incomeProvider.fetchAndSetAll(token: userProvider.authToken);
+  }
+
   final List<Map<String, Object>> _pages = [
     {'page': DashboardScreen(), 'title': 'Dashboard'},
     {'page': StatementScreen(), 'title': 'Statement'},
