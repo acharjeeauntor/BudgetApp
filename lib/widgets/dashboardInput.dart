@@ -1,8 +1,6 @@
-import 'dart:convert';
-
+import 'package:budgetapp/providers/incomes.dart';
 import 'package:budgetapp/providers/user.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 import 'package:toggle_switch/toggle_switch.dart';
@@ -20,42 +18,57 @@ class _DashBoardInputShowState extends State<DashBoardInputShow> {
     var _type = 0;
 
     final userProvider = Provider.of<User>(context, listen: false);
+    final incomeProvider = Provider.of<Incomes>(context, listen: false);
 
     void handleSubmit() async {
       if (_type == 0) {
         // post request
-        final response = await http.post("http://10.0.2.2:5000/budget/income",
-            headers: {"Authorization": "${userProvider.authToken}"},
-            body: {"desc": _descController, "amount": _amountController});
-        var responseData = json.decode(response.body);
-
-        if (response.statusCode == 200) {
-          //notify income list widget
-
-        } else if (response.statusCode == 400) {
-          Toast.show(responseData['desc'], context,
-              textColor: Colors.white,
-              duration: Toast.LENGTH_LONG,
-              gravity: Toast.TOP,
-              backgroundColor: const Color(0xffEC7063));
-        }
+        print("handle called");
+        print(_descController.text);
+        await incomeProvider
+            .addIncome(
+                desc: _descController.text,
+                amount: _amountController.text,
+                token: userProvider.authToken)
+            .then((_) {
+          incomeProvider.addInc(_amountController.text);
+        }).then((res) {
+          if (res != null) {
+            Toast.show(res.toString(), context,
+                textColor: Colors.white,
+                duration: Toast.LENGTH_LONG,
+                gravity: Toast.TOP,
+                backgroundColor: const Color(0xffEC7063));
+          } else {
+            setState(() {
+              _descController.clear();
+              _amountController.clear();
+            });
+          }
+        });
       } else if (_type == 1) {
         // post request
-        final response = await http.post("http://10.0.2.2:5000/budget/exp",
-            headers: {"Authorization": "${userProvider.authToken}"},
-            body: {"desc": _descController, "amount": _amountController});
-        var responseData = json.decode(response.body);
-
-        if (response.statusCode == 200) {
-          //notify income list widget
-
-        } else if (response.statusCode == 400) {
-          Toast.show(responseData['desc'], context,
-              textColor: Colors.white,
-              duration: Toast.LENGTH_LONG,
-              gravity: Toast.TOP,
-              backgroundColor: const Color(0xffEC7063));
-        }
+        await incomeProvider
+            .addExpenses(
+                desc: _descController.text,
+                amount: _amountController.text,
+                token: userProvider.authToken)
+            .then((_) {
+          incomeProvider.addExp(_amountController.text);
+        }).then((res) {
+          if (res != null) {
+            Toast.show(res.toString(), context,
+                textColor: Colors.white,
+                duration: Toast.LENGTH_LONG,
+                gravity: Toast.TOP,
+                backgroundColor: const Color(0xffEC7063));
+          } else {
+            setState(() {
+              _descController.clear();
+              _amountController.clear();
+            });
+          }
+        });
       }
     }
 
@@ -71,6 +84,7 @@ class _DashBoardInputShowState extends State<DashBoardInputShow> {
             children: [
               Expanded(
                 child: TextField(
+                  controller: _descController,
                   decoration: InputDecoration(
                       hintText: 'Description',
                       prefixIcon: Icon(Icons.description)),
@@ -79,7 +93,7 @@ class _DashBoardInputShowState extends State<DashBoardInputShow> {
               ),
               Expanded(
                 child: TextField(
-                  obscureText: true,
+                  controller: _amountController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       hintText: 'Amount',

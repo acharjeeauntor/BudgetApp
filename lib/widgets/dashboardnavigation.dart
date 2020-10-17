@@ -53,7 +53,7 @@ class _DashboardNavigationState extends State<DashboardNavigation> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.category), title: Text('Dashboard')),
             BottomNavigationBarItem(
-                icon: Icon(Icons.settings), title: Text('Statement')),
+                icon: Icon(Icons.insert_drive_file), title: Text('Statement')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.settings), title: Text('Setting'))
           ]),

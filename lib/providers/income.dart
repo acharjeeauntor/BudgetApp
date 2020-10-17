@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final income = incomeFromJson(jsonString);
+
 import 'dart:convert';
 
 List<Income> incomeFromJson(String str) =>
@@ -18,7 +22,7 @@ class Income {
 
   int amount;
   String id;
-  String user;
+  User user;
   String desc;
   DateTime date;
   int v;
@@ -26,7 +30,7 @@ class Income {
   factory Income.fromJson(Map<String, dynamic> json) => Income(
         amount: json["amount"],
         id: json["_id"],
-        user: json["user"],
+        user: userValues.map[json["user"]],
         desc: json["desc"],
         date: DateTime.parse(json["date"]),
         v: json["__v"],
@@ -35,9 +39,28 @@ class Income {
   Map<String, dynamic> toJson() => {
         "amount": amount,
         "_id": id,
-        "user": user,
+        "user": userValues.reverse[user],
         "desc": desc,
         "date": date.toIso8601String(),
         "__v": v,
       };
+}
+
+enum User { THE_5_F849_E30_CEFC9_D11_AC5197_D6 }
+
+final userValues = EnumValues(
+    {"5f849e30cefc9d11ac5197d6": User.THE_5_F849_E30_CEFC9_D11_AC5197_D6});
+
+class EnumValues<T> {
+  Map<String, T> map;
+  Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    if (reverseMap == null) {
+      reverseMap = map.map((k, v) => new MapEntry(v, k));
+    }
+    return reverseMap;
+  }
 }
