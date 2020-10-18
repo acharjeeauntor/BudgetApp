@@ -1,7 +1,4 @@
-import 'package:budgetapp/helpers/color.dart';
-import 'package:budgetapp/screens/signinScreen.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:budgetapp/helpers/index.dart';
 
 class ResetMsgScreen extends StatelessWidget {
   @override

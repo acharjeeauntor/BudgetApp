@@ -20,6 +20,19 @@ class SigninScreen extends StatefulWidget {
 }
 
 class _SigninScreenState extends State<SigninScreen> {
+  @override
+//  void initState() {
+//    // TODO: implement initState
+//    super.initState();
+//    final token = getStringValuesSF();
+//    if (token != null) {
+//      Provider.of<User>(context, listen: false).addToken = token.toString();
+//      Navigator.of(context).pushReplacementNamed(DashboardNavigation.routeName);
+//    } else {
+//      return;
+//    }
+//  }
+
   var formKey = GlobalKey<FormState>();
 
   var _email, _password;
@@ -33,7 +46,9 @@ class _SigninScreenState extends State<SigninScreen> {
       if (formKey.currentState.validate()) {
         formKey.currentState.save();
       }
-
+      CircularProgressIndicator(
+        strokeWidth: 2.0,
+      );
       print(_email);
       print(_password);
 
@@ -56,7 +71,7 @@ class _SigninScreenState extends State<SigninScreen> {
       if (response.statusCode == 200) {
         Navigator.of(context)
             .pushReplacementNamed(DashboardNavigation.routeName);
-        getStringValuesSF(responseData['token']);
+        addStringToSF(responseData['token']);
         userProvider.addToken = responseData['token'];
       } else if (response.statusCode == 404) {
         Toast.show("invalid Email Or Password", context,
@@ -175,9 +190,14 @@ class _SigninScreenState extends State<SigninScreen> {
   }
 }
 
-getStringValuesSF(String token) async {
+addStringToSF(String token) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //Return String
-  String jwtToken = prefs.getString(token);
-  return jwtToken;
+  prefs.setString(token, "jwtToken");
 }
+
+//getStringValuesSF() async {
+//  SharedPreferences prefs = await SharedPreferences.getInstance();
+//  //Return String
+//  String stringValue = prefs.getString('jwtToken');
+//  return stringValue;
+//}

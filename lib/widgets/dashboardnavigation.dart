@@ -1,10 +1,5 @@
+import 'package:budgetapp/helpers/index.dart';
 import 'package:budgetapp/providers/incomes.dart';
-import 'package:budgetapp/providers/user.dart';
-import 'package:budgetapp/screens/dashboardScreen.dart';
-import 'package:budgetapp/screens/settingsScreen.dart';
-import 'package:budgetapp/screens/statemantScreen.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class DashboardNavigation extends StatefulWidget {
   static const routeName = 'dashboardnavigation';

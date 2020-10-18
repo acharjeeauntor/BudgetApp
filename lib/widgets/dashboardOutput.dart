@@ -1,6 +1,4 @@
-import 'package:budgetapp/widgets/expensesList.dart';
-import 'package:budgetapp/widgets/incomeList.dart';
-import 'package:flutter/material.dart';
+import 'package:budgetapp/helpers/index.dart';
 
 class DashBoardOutput extends StatefulWidget {
   @override

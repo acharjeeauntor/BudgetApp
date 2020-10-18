@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:budgetapp/helpers/index.dart';
 
 class User with ChangeNotifier {
   String _token = '';

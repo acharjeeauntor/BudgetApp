@@ -1,12 +1,5 @@
+import 'package:budgetapp/helpers/index.dart';
 import 'package:budgetapp/providers/incomes.dart';
-import 'package:budgetapp/screens/changePasswordScreen.dart';
-import 'package:budgetapp/screens/dashboardScreen.dart';
-import 'package:budgetapp/screens/settingsScreen.dart';
-import 'package:budgetapp/screens/signinScreen.dart';
-import 'package:budgetapp/screens/signupScreen.dart';
-import 'package:budgetapp/widgets/dashboardnavigation.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'providers/user.dart';
 
@@ -25,10 +18,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Budget App',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
-          accentColor: Colors.orangeAccent,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
+            primarySwatch: Colors.blue,
+            accentColor: Colors.orangeAccent,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            fontFamily: 'Merriweather'),
         debugShowCheckedModeBanner: false,
         //initialRoute: DashboardNavigation.routeName,
         initialRoute: SigninScreen.routeName,

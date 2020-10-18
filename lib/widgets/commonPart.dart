@@ -1,5 +1,4 @@
-import 'package:budgetapp/helpers/color.dart';
-import 'package:flutter/material.dart';
+import 'package:budgetapp/helpers/index.dart';
 
 class CommonPart extends StatelessWidget {
   var type;

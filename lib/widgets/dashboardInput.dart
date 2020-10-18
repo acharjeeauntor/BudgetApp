@@ -1,9 +1,5 @@
+import 'package:budgetapp/helpers/index.dart';
 import 'package:budgetapp/providers/incomes.dart';
-import 'package:budgetapp/providers/user.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:toast/toast.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 
 class DashBoardInputShow extends StatefulWidget {
   @override

@@ -1,8 +1,5 @@
+import 'package:budgetapp/helpers/index.dart';
 import 'package:budgetapp/providers/incomes.dart';
-import 'package:budgetapp/providers/user.dart';
-import 'package:budgetapp/widgets/incomeexpenseslistcontent.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class IncomeList extends StatefulWidget {
   @override

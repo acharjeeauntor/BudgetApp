@@ -1,7 +1,4 @@
-import 'package:budgetapp/widgets/dashboardInput.dart';
-import 'package:budgetapp/widgets/dashboardOutput.dart';
-import 'package:budgetapp/widgets/dashboardValue.dart';
-import 'package:flutter/material.dart';
+import 'package:budgetapp/helpers/index.dart';
 
 class DashboardScreen extends StatefulWidget {
   static const routename = 'dashboard';

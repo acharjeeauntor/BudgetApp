@@ -1,8 +1,5 @@
+import 'package:budgetapp/helpers/index.dart';
 import 'package:budgetapp/providers/incomes.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:provider/provider.dart';
 
 class DashBoardValueShow extends StatefulWidget {
   @override

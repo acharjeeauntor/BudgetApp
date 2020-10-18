@@ -1,13 +1,5 @@
-import 'package:budgetapp/providers/user.dart';
-import 'package:budgetapp/screens/changePasswordScreen.dart';
-import 'package:budgetapp/screens/signinScreen.dart';
-import 'package:budgetapp/screens/signupScreen.dart';
-import 'package:flutter/material.dart';
+import 'package:budgetapp/helpers/index.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
-import 'package:share/share.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:toast/toast.dart';
 
 class SettingScreen extends StatefulWidget {
   static const routeName = "setting";

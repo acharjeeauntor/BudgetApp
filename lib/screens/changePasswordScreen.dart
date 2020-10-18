@@ -1,13 +1,5 @@
-import 'dart:convert';
-
-import 'package:budgetapp/helpers/color.dart';
-import 'package:budgetapp/providers/user.dart';
-import 'package:budgetapp/screens/signinScreen.dart';
-import 'package:flutter/material.dart';
+import 'package:budgetapp/helpers/index.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:toast/toast.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   static const routeName = "changepassword";
