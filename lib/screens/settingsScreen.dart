@@ -51,7 +51,11 @@ class _SettingScreenState extends State<SettingScreen> {
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        title: Text("Alert"),
+                        title: Text(
+                          "Alert",
+                          style: TextStyle(
+                              color: Colors.red, fontWeight: FontWeight.bold),
+                        ),
                         elevation: 1.8,
                         content: Text("Do you want to Delete Account?"),
                         actions: [

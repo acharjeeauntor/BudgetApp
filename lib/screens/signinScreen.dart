@@ -20,6 +20,9 @@ class SigninScreen extends StatefulWidget {
 }
 
 class _SigninScreenState extends State<SigninScreen> {
+
+  bool _indicator=false;
+
   @override
 //  void initState() {
 //    // TODO: implement initState
@@ -43,12 +46,14 @@ class _SigninScreenState extends State<SigninScreen> {
     final userProvider = Provider.of<User>(context, listen: false);
 
     void handleSubmit() async {
+
       if (formKey.currentState.validate()) {
         formKey.currentState.save();
+        setState(() {
+          _indicator=true;
+        });
       }
-      CircularProgressIndicator(
-        strokeWidth: 2.0,
-      );
+
       print(_email);
       print(_password);
 
@@ -69,11 +74,18 @@ class _SigninScreenState extends State<SigninScreen> {
 //    print("Token validaty$hasExpired");
 
       if (response.statusCode == 200) {
-        Navigator.of(context)
-            .pushReplacementNamed(DashboardNavigation.routeName);
+
         addStringToSF(responseData['token']);
         userProvider.addToken = responseData['token'];
+        setState(() {
+          _indicator=false;
+        });
+        Navigator.of(context)
+            .pushReplacementNamed(DashboardNavigation.routeName);
       } else if (response.statusCode == 404) {
+        setState(() {
+          _indicator=false;
+        });
         Toast.show("invalid Email Or Password", context,
             duration: Toast.LENGTH_LONG,
             gravity: Toast.TOP,
@@ -82,7 +94,7 @@ class _SigninScreenState extends State<SigninScreen> {
     }
 
     return Scaffold(
-      body: Column(
+      body: _indicator? Center(child: CircularProgressIndicator(),):Column(
         children: [
           Expanded(flex: 2, child: CommonPart("SignIn")),
           Expanded(

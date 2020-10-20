@@ -12,6 +12,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   var formKey = GlobalKey<FormState>();
   var _comfirmPassword, _oldPassword, _newPassword;
   var passwordCtrl = TextEditingController();
+  bool _indicator = false;
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<User>(context, listen: false);
@@ -19,6 +20,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     void handleSubmit() async {
       if (formKey.currentState.validate()) {
         formKey.currentState.save();
+        setState(() {
+          _indicator = true;
+        });
       }
 
       // post request
@@ -46,6 +50,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         //Clear SharedPreferences
         final pref = await SharedPreferences.getInstance();
         await pref.clear();
+
+        setState(() {
+          _indicator = false;
+        });
+
         //Navigator to the Signup page
         Navigator.of(context).pushReplacementNamed(
           SigninScreen.routeName,
@@ -56,6 +65,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             gravity: Toast.TOP,
             backgroundColor: const Color(0xff48C9B0));
       } else if (response.statusCode == 401) {
+        setState(() {
+          _indicator = false;
+        });
         Toast.show(responseData['oldPassword'], context,
             textColor: Colors.white,
             duration: Toast.LENGTH_LONG,
@@ -68,65 +80,70 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       appBar: AppBar(
         title: Text("Change Password"),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-          child: Form(
-            key: formKey,
-            child: Column(
-              children: [
-                TextFormField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      labelText: 'Enter Old Password',
-                      prefixIcon: Icon(Icons.lock)),
-                  validator: (value) => value.length < 6
-                      ? "Password must be at least 6 characters"
-                      : null,
-                  onSaved: (value) => _oldPassword = value,
-                ),
-                TextFormField(
-                  obscureText: true,
-                  controller: passwordCtrl,
-                  decoration: InputDecoration(
-                      labelText: 'Enter New Password',
-                      prefixIcon: Icon(Icons.lock)),
-                  validator: (value) => value.length < 6
-                      ? "Password must be at least 6 characters"
-                      : null,
-                  onSaved: (value) => _newPassword = value,
-                ),
-                TextFormField(
-                  obscureText: true,
-                  //controller: confPasswordCtrl,
-                  decoration: InputDecoration(
-                      labelText: 'Re-enter Password',
-                      prefixIcon: Icon(Icons.lock)),
-                  validator: (value) =>
-                      value != passwordCtrl.text ? "Password Not match" : null,
-                  onSaved: (value) => _comfirmPassword = value,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  width: double.infinity,
-                  child: RaisedButton(
-                    color: containerColor,
-                    onPressed: handleSubmit,
-                    child: Text(
-                      "Change Password",
-                      style: TextStyle(
-                        fontSize: 17.0,
+      body: _indicator
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Center(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                            labelText: 'Enter Old Password',
+                            prefixIcon: Icon(Icons.lock)),
+                        validator: (value) => value.length < 6
+                            ? "Password must be at least 6 characters"
+                            : null,
+                        onSaved: (value) => _oldPassword = value,
                       ),
-                    ),
+                      TextFormField(
+                        obscureText: true,
+                        controller: passwordCtrl,
+                        decoration: InputDecoration(
+                            labelText: 'Enter New Password',
+                            prefixIcon: Icon(Icons.lock)),
+                        validator: (value) => value.length < 6
+                            ? "Password must be at least 6 characters"
+                            : null,
+                        onSaved: (value) => _newPassword = value,
+                      ),
+                      TextFormField(
+                        obscureText: true,
+                        //controller: confPasswordCtrl,
+                        decoration: InputDecoration(
+                            labelText: 'Re-enter Password',
+                            prefixIcon: Icon(Icons.lock)),
+                        validator: (value) => value != passwordCtrl.text
+                            ? "Password Not match"
+                            : null,
+                        onSaved: (value) => _comfirmPassword = value,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        child: RaisedButton(
+                          color: containerColor,
+                          onPressed: handleSubmit,
+                          child: Text(
+                            "Change Password",
+                            style: TextStyle(
+                              fontSize: 17.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }

@@ -8,15 +8,21 @@ class CommonPart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    var MQ = MediaQuery.of(context);
 
     return Container(
+      width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
             child: Image(
-                width: 100.0,
-                height: 100.0,
+                width: MQ.orientation == Orientation.landscape
+                    ? 100.0
+                    : size.width * 0.25,
+                height: MQ.orientation == Orientation.landscape
+                    ? 100.0
+                    : size.height * 0.15,
                 fit: BoxFit.cover,
                 image: AssetImage("assets/images/logo.png")),
           ),
@@ -26,7 +32,10 @@ class CommonPart extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: Text(
                 "$type",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize:
+                        MQ.orientation == Orientation.portrait ? 20.0 : 30.0,
+                    fontWeight: FontWeight.bold),
               ),
             ),
           )

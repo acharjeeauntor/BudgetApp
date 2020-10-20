@@ -14,7 +14,7 @@ class _DashBoardOutputState extends State<DashBoardOutput> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(30.0),
           child: new Container(
-            color: Colors.green,
+            color: Colors.cyan,
             child: new SafeArea(
               child: TabBar(tabs: [
                 Tab(

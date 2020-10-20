@@ -11,7 +11,7 @@ class _ExpensesListState extends State<ExpensesList> {
   Widget build(BuildContext context) {
     final userProvider = Provider.of<User>(context, listen: false);
     return Consumer<Incomes>(builder: (context, expenses, ch) {
-      return ListView.builder(
+      return expenses.expList.length ==0?Center(child:Text("No Expenses Found!")): ListView.builder(
           itemCount: expenses.expList.length,
           itemBuilder: (context, index) {
             return Dismissible(

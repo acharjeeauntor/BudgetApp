@@ -12,7 +12,7 @@ class _IncomeListState extends State<IncomeList> {
     final userProvider = Provider.of<User>(context, listen: false);
     return Consumer<Incomes>(
       builder: (context, incomes, ch) {
-        return ListView.builder(
+        return incomes.incList.length==0?Center(child:Text("No Income Found!")):ListView.builder(
             itemCount: incomes.incList.length,
             itemBuilder: (context, index) {
               return Dismissible(
