@@ -1,5 +1,5 @@
 import 'package:budgetapp/helpers/index.dart';
-import 'package:budgetapp/providers/incomes.dart';
+import 'package:budgetapp/providers/appData.dart';
 
 class DashboardNavigation extends StatefulWidget {
   static const routeName = 'dashboardnavigation';
@@ -14,9 +14,9 @@ class _DashboardNavigationState extends State<DashboardNavigation> {
     // TODO: implement initState
     super.initState();
     final userProvider = Provider.of<User>(context, listen: false);
-    final incomeProvider = Provider.of<Incomes>(context, listen: false);
+    final appDataProvider = Provider.of<AppData>(context, listen: false);
 
-    incomeProvider.fetchAndSetAll(token: userProvider.authToken);
+    appDataProvider.fetchAndSetAll(token: userProvider.authToken);
   }
 
   final List<Map<String, Object>> _pages = [

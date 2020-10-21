@@ -1,5 +1,5 @@
 import 'package:budgetapp/helpers/index.dart';
-import 'package:budgetapp/providers/incomes.dart';
+import 'package:budgetapp/providers/appData.dart';
 
 class DashBoardInputShow extends StatefulWidget {
   @override
@@ -14,57 +14,64 @@ class _DashBoardInputShowState extends State<DashBoardInputShow> {
     var _type = 0;
 
     final userProvider = Provider.of<User>(context, listen: false);
-    final incomeProvider = Provider.of<Incomes>(context, listen: false);
+    final appDataProvider = Provider.of<AppData>(context, listen: false);
 
     void handleSubmit() async {
-      if (_type == 0) {
-        // post request
-        print("handle called");
-        print(_descController.text);
-        await incomeProvider
-            .addIncome(
-                desc: _descController.text,
-                amount: _amountController.text,
-                token: userProvider.authToken)
-            .then((_) {
-          incomeProvider.addInc(_amountController.text);
-        }).then((res) {
-          if (res != null) {
-            Toast.show(res.toString(), context,
-                textColor: Colors.white,
-                duration: Toast.LENGTH_LONG,
-                gravity: Toast.TOP,
-                backgroundColor: const Color(0xffEC7063));
-          } else {
-            setState(() {
-              _descController.clear();
-              _amountController.clear();
-            });
-          }
-        });
-      } else if (_type == 1) {
-        // post request
-        await incomeProvider
-            .addExpenses(
-                desc: _descController.text,
-                amount: _amountController.text,
-                token: userProvider.authToken)
-            .then((_) {
-          incomeProvider.addExp(_amountController.text);
-        }).then((res) {
-          if (res != null) {
-            Toast.show(res.toString(), context,
-                textColor: Colors.white,
-                duration: Toast.LENGTH_LONG,
-                gravity: Toast.TOP,
-                backgroundColor: const Color(0xffEC7063));
-          } else {
-            setState(() {
-              _descController.clear();
-              _amountController.clear();
-            });
-          }
-        });
+      FocusScope.of(context).unfocus();
+      if (_descController.text.isEmpty || _amountController.text.isEmpty) {
+        return Toast.show("Description and Amount is Required", context,
+            textColor: Colors.white,
+            duration: Toast.LENGTH_LONG,
+            gravity: Toast.TOP,
+            backgroundColor: const Color(0xffEC7063));
+      } else {
+        if (_type == 0) {
+          // post request
+          print("handle called");
+          print(_descController.text);
+          await appDataProvider
+              .addIncome(
+                  desc: _descController.text,
+                  amount: _amountController.text,
+                  token: userProvider.authToken)
+              .then((res) {
+            if (res == 'success') {
+              appDataProvider.addInc(_amountController.text);
+              setState(() {
+                _descController.clear();
+                _amountController.clear();
+              });
+            } else {
+              Toast.show(res, context,
+                  textColor: Colors.white,
+                  duration: Toast.LENGTH_LONG,
+                  gravity: Toast.TOP,
+                  backgroundColor: const Color(0xffEC7063));
+            }
+          });
+        } else if (_type == 1) {
+          // post request
+          await appDataProvider
+              .addExpenses(
+                  desc: _descController.text,
+                  amount: _amountController.text,
+                  token: userProvider.authToken)
+              .then((res) {
+            if (res == 'success') {
+              appDataProvider.addExp(_amountController.text);
+              setState(() {
+                _descController.clear();
+                _amountController.clear();
+              });
+            } else {
+              Toast.show(res, context,
+                  textColor: Colors.white,
+                  duration: Toast.LENGTH_LONG,
+                  gravity: Toast.TOP,
+                  backgroundColor: const Color(0xffEC7063));
+            }
+          });
+        }
       }
     }
 

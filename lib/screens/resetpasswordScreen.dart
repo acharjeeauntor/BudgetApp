@@ -12,6 +12,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   bool _indicator = false;
 
   void handleSubmit() async {
+    FocusScope.of(context).unfocus();
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
       setState(() {

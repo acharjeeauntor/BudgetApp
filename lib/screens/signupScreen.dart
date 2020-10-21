@@ -17,6 +17,7 @@ class _SignupScreenState extends State<SignupScreen> {
   var passwordCtrl = TextEditingController();
 
   void handleSubmit() async {
+    FocusScope.of(context).unfocus();
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
       setState(() {
@@ -71,7 +72,7 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
 //    var MQ = MediaQuery.of(context);
-  Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       //resizeToAvoidBottomPadding: false,
@@ -81,123 +82,109 @@ class _SignupScreenState extends State<SignupScreen> {
             )
           : SafeArea(
               child: SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                      maxHeight: size.height),
-                  child: Column(
-                    children: [
-                      Expanded(flex: 2, child: CommonPart("SignUp")),
-                      Expanded(
-                        flex: 4,
-                        child: Container(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 20.0, right: 20.0),
-                                child: Form(
-                                  key: formKey,
-                                  child: Column(
-                                    children: [
-                                      TextFormField(
-                                        //controller: nameCtrl,
-                                        decoration: InputDecoration(
-                                            labelText: 'Enter Your Name',
-                                            prefixIcon: Icon(Icons.face)),
-                                        validator: (value) => value.isEmpty
-                                            ? "Name is required"
-                                            : null,
-                                        onSaved: (value) => _name = value,
+                child: Column(
+                  children: [
+                    CommonPart("SignUp"),
+                    Column(
+                      children: [
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(left: 20.0, right: 20.0),
+                          child: Form(
+                            key: formKey,
+                            child: Column(
+                              children: [
+                                TextFormField(
+                                  //controller: nameCtrl,
+                                  decoration: InputDecoration(
+                                      labelText: 'Enter Your Name',
+                                      prefixIcon: Icon(Icons.face)),
+                                  validator: (value) =>
+                                      value.isEmpty ? "Name is required" : null,
+                                  onSaved: (value) => _name = value,
+                                ),
+                                TextFormField(
+                                  //controller: emailCtrl,
+                                  decoration: InputDecoration(
+                                      labelText: 'Enter Your Email',
+                                      prefixIcon: Icon(Icons.mail)),
+                                  keyboardType: TextInputType.emailAddress,
+                                  validator: (value) => !value.contains("@")
+                                      ? "Enter a valid email"
+                                      : null,
+                                  onSaved: (value) => _email = value,
+                                ),
+                                TextFormField(
+                                  obscureText: true,
+                                  controller: passwordCtrl,
+                                  decoration: InputDecoration(
+                                      labelText: 'Enter Your Password',
+                                      prefixIcon: Icon(Icons.lock)),
+                                  validator: (value) => value.length < 6
+                                      ? "Password must be at least 6 characters"
+                                      : null,
+                                  onSaved: (value) => _password = value,
+                                ),
+                                TextFormField(
+                                  obscureText: true,
+                                  //controller: confPasswordCtrl,
+                                  decoration: InputDecoration(
+                                      labelText: 'Re-enter Password',
+                                      prefixIcon: Icon(Icons.lock)),
+                                  validator: (value) =>
+                                      value != passwordCtrl.text
+                                          ? "Password Not match"
+                                          : null,
+                                  onSaved: (value) => _confPassword = value,
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  child: RaisedButton(
+                                    color: containerColor,
+                                    onPressed: handleSubmit,
+                                    child: Text(
+                                      "SignUp",
+                                      style: TextStyle(
+                                        fontSize: 17.0,
                                       ),
-                                      TextFormField(
-                                        //controller: emailCtrl,
-                                        decoration: InputDecoration(
-                                            labelText: 'Enter Your Email',
-                                            prefixIcon: Icon(Icons.mail)),
-                                        keyboardType:
-                                            TextInputType.emailAddress,
-                                        validator: (value) =>
-                                            !value.contains("@")
-                                                ? "Enter a valid email"
-                                                : null,
-                                        onSaved: (value) => _email = value,
-                                      ),
-                                      TextFormField(
-                                        obscureText: true,
-                                        controller: passwordCtrl,
-                                        decoration: InputDecoration(
-                                            labelText: 'Enter Your Password',
-                                            prefixIcon: Icon(Icons.lock)),
-                                        validator: (value) => value.length < 6
-                                            ? "Password must be at least 6 characters"
-                                            : null,
-                                        onSaved: (value) => _password = value,
-                                      ),
-                                      TextFormField(
-                                        obscureText: true,
-                                        //controller: confPasswordCtrl,
-                                        decoration: InputDecoration(
-                                            labelText: 'Re-enter Password',
-                                            prefixIcon: Icon(Icons.lock)),
-                                        validator: (value) =>
-                                            value != passwordCtrl.text
-                                                ? "Password Not match"
-                                                : null,
-                                        onSaved: (value) =>
-                                            _confPassword = value,
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Container(
-                                        width: double.infinity,
-                                        child: RaisedButton(
-                                          color: containerColor,
-                                          onPressed: handleSubmit,
-                                          child: Text(
-                                            "SignUp",
-                                            style: TextStyle(
-                                              fontSize: 17.0,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(top: 15),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "Already a member?",
-                                              style: TextStyle(fontSize: 17),
-                                            ),
-                                            FlatButton(
-                                                onPressed: () {
-                                                  Navigator.of(context)
-                                                      .pushReplacementNamed(
-                                                    SigninScreen.routeName,
-                                                  );
-                                                },
-                                                child: Text(
-                                                  "SignIn",
-                                                  style: TextStyle(
-                                                      color: containerColor,
-                                                      fontSize: 17),
-                                                ))
-                                          ],
-                                        ),
-                                      )
-                                    ],
+                                    ),
                                   ),
                                 ),
-                              )
-                            ],
+                                Container(
+                                  margin: EdgeInsets.only(top: 15),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Already a member?",
+                                        style: TextStyle(fontSize: 17),
+                                      ),
+                                      FlatButton(
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .pushReplacementNamed(
+                                              SigninScreen.routeName,
+                                            );
+                                          },
+                                          child: Text(
+                                            "SignIn",
+                                            style: TextStyle(
+                                                color: containerColor,
+                                                fontSize: 17),
+                                          ))
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      ),
-                    ],
-                  ),
+                        )
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),

@@ -11,6 +11,9 @@ class CommonPart extends StatelessWidget {
     var MQ = MediaQuery.of(context);
 
     return Container(
+      height: MQ.orientation == Orientation.portrait
+          ? size.height * 0.3
+          : size.height * 0.4,
       width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -29,7 +32,9 @@ class CommonPart extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
             child: Align(
-              alignment: Alignment.bottomRight,
+              alignment: MQ.orientation == Orientation.portrait
+                  ? Alignment.bottomRight
+                  : Alignment.topRight,
               child: Text(
                 "$type",
                 style: TextStyle(

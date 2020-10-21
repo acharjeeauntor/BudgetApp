@@ -1,9 +1,8 @@
 import 'package:budgetapp/helpers/index.dart';
 import 'package:budgetapp/providers/income.dart';
-
 import 'package:http/http.dart' as http;
 
-class Incomes with ChangeNotifier {
+class AppData with ChangeNotifier {
   int _totalInc = 0;
   int _totalExp = 0;
 
@@ -21,6 +20,18 @@ class Incomes with ChangeNotifier {
     print("$value");
     notifyListeners();
   }
+
+
+  void removeAll(){
+    this._totalInc=0;
+    this._totalExp=0;
+    this._incList=[];
+    this._expList=[];
+  }
+
+
+
+
 
   int get totalIncome => _totalInc;
   int get totalExpenses => _totalExp;
@@ -104,8 +115,9 @@ class Incomes with ChangeNotifier {
         //notify income list widget
         _incList.add(Income.fromJson(responseData));
         notifyListeners();
+        return 'success';
       } else if (response.statusCode == 400) {
-        return "Description and Amount is required";
+        return "Server Error";
       }
     } catch (error) {
       print("error called");
@@ -126,8 +138,9 @@ class Incomes with ChangeNotifier {
         //notify income list widget
         _expList.add(Income.fromJson(responseData));
         notifyListeners();
+        return 'success';
       } else if (response.statusCode == 400) {
-        return "Description and Amount is required";
+        return "Server Error";
       }
     } catch (error) {
       print("error called");

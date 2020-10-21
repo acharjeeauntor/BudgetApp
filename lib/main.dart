@@ -1,5 +1,5 @@
 import 'package:budgetapp/helpers/index.dart';
-import 'package:budgetapp/providers/incomes.dart';
+import 'package:budgetapp/providers/appData.dart';
 
 import 'providers/user.dart';
 
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => User()),
-        ChangeNotifierProvider(create: (_) => Incomes())
+        ChangeNotifierProvider(create: (_) => AppData())
       ],
       child: MaterialApp(
         title: 'Budget App',

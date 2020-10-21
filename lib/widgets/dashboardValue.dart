@@ -1,5 +1,5 @@
 import 'package:budgetapp/helpers/index.dart';
-import 'package:budgetapp/providers/incomes.dart';
+import 'package:budgetapp/providers/appData.dart';
 
 class DashBoardValueShow extends StatefulWidget {
   @override
@@ -17,7 +17,7 @@ class _DashBoardValueShowState extends State<DashBoardValueShow> {
             color: Colors.cyan,
             height: MediaQuery.of(context).size.height * 0.15,
             width: double.infinity,
-            child: Consumer<Incomes>(builder: (context, totalValues, ch) {
+            child: Consumer<AppData>(builder: (context, totalValues, ch) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

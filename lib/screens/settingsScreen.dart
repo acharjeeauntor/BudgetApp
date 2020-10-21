@@ -1,4 +1,5 @@
 import 'package:budgetapp/helpers/index.dart';
+import 'package:budgetapp/providers/appData.dart';
 import 'package:http/http.dart' as http;
 
 class SettingScreen extends StatefulWidget {
@@ -12,6 +13,14 @@ class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<User>(context, listen: false);
+    final appDataProvider = Provider.of<AppData>(context, listen: false);
+
+    String getUserName() {
+      Map<String, dynamic> decodedToken =
+          JwtDecoder.decode(userProvider.authToken);
+      return decodedToken['username'];
+    }
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -20,7 +29,7 @@ class _SettingScreenState extends State<SettingScreen> {
             Container(
               margin: EdgeInsets.only(top: 20),
               child: Text(
-                "Welcome To Budget-App",
+                "Welcome ${getUserName()}",
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.w700,
@@ -67,7 +76,9 @@ class _SettingScreenState extends State<SettingScreen> {
                           ),
                           RaisedButton(
                             onPressed: () {
-                              deleteAccount(token: userProvider.authToken);
+                              deleteAccount(
+                                  token: userProvider.authToken,
+                                  prov: appDataProvider.removeAll);
                             },
                             child: Text("Yes"),
                           )
@@ -98,6 +109,7 @@ class _SettingScreenState extends State<SettingScreen> {
               contentPadding: EdgeInsets.only(left: 0.0, top: 4, bottom: 0),
               onTap: () {
                 //Go to sign in page
+                appDataProvider.removeAll();
                 Navigator.of(context).pushReplacementNamed(
                   SigninScreen.routeName,
                 );
@@ -114,7 +126,7 @@ class _SettingScreenState extends State<SettingScreen> {
     );
   }
 
-  deleteAccount({token}) async {
+  deleteAccount({token, prov}) async {
     final response = await http.delete(
         'http://10.0.2.2:5000/users/deletemyaccount',
         headers: {"Authorization": "$token"});
@@ -123,6 +135,7 @@ class _SettingScreenState extends State<SettingScreen> {
       //Clear SharedPreferences
       final pref = await SharedPreferences.getInstance();
       await pref.clear();
+      prov();
       //Navigator to the Signup page
       Navigator.of(context).pushReplacementNamed(
         SignupScreen.routeName,
@@ -143,8 +156,8 @@ class _SettingScreenState extends State<SettingScreen> {
     return Stack(
       children: [
         Container(
-          height: 200,
-          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 0.25,
+          width: double.infinity,
           decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/banner.jpg"),

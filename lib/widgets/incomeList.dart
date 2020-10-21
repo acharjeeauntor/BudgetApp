@@ -1,5 +1,5 @@
 import 'package:budgetapp/helpers/index.dart';
-import 'package:budgetapp/providers/incomes.dart';
+import 'package:budgetapp/providers/appData.dart';
 
 class IncomeList extends StatefulWidget {
   @override
@@ -10,7 +10,7 @@ class _IncomeListState extends State<IncomeList> {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<User>(context, listen: false);
-    return Consumer<Incomes>(
+    return Consumer<AppData>(
       builder: (context, incomes, ch) {
         return incomes.incList.length==0?Center(child:Text("No Income Found!")):ListView.builder(
             itemCount: incomes.incList.length,
