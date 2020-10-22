@@ -5,6 +5,7 @@ import 'package:budgetapp/helpers/index.dart';
 import 'package:budgetapp/providers/user.dart';
 import 'package:budgetapp/screens/resetpasswordScreen.dart';
 import 'package:budgetapp/screens/signupScreen.dart';
+import 'package:budgetapp/widgets/bouncypageroute.dart';
 import 'package:budgetapp/widgets/commonPart.dart';
 import 'package:budgetapp/widgets/dashboardnavigation.dart';
 import 'package:flutter/material.dart';
@@ -80,8 +81,10 @@ class _SigninScreenState extends State<SigninScreen> {
         setState(() {
           _indicator = false;
         });
-        Navigator.of(context)
-            .pushReplacementNamed(DashboardNavigation.routeName);
+
+        //Page Route Builder
+        Navigator.pushReplacement(
+            context, BouncyPageRoute(widget: DashboardNavigation(),crv: Curves.easeInOut));
       } else if (response.statusCode == 404) {
         setState(() {
           _indicator = false;
@@ -180,10 +183,8 @@ class _SigninScreenState extends State<SigninScreen> {
                                       ),
                                       FlatButton(
                                           onPressed: () {
-                                            Navigator.of(context)
-                                                .pushReplacementNamed(
-                                              SignupScreen.routeName,
-                                            );
+                                            Navigator.pushReplacement(
+                                                context, BouncyPageRoute(widget: SignupScreen(),crv: Curves.linearToEaseOut));
                                           },
                                           child: Text(
                                             "SignUp",

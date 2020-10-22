@@ -10,9 +10,12 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  GlobalKey<RefreshIndicatorState> refreshKey;
+
   @override
   void initState() {
     super.initState();
+    refreshKey = GlobalKey<RefreshIndicatorState>();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -35,36 +38,44 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final userProvider = Provider.of<User>(context, listen: false);
     final appDataProvider = Provider.of<AppData>(context, listen: false);
 
-//    Future<Null> refresh() async {
-//      print("Refresh Called");
-//      await appDataProvider.fetchAndSetAll(token: userProvider.authToken);
-//    }
+    Future<Null> refresh() async {
+      print("Refresh Called");
+      await appDataProvider.fetchAndSetAll(token: userProvider.authToken);
+      return null;
+    }
 
     return Scaffold(
-        body: Column(
-      children: [
-        Expanded(
-          flex: 2,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-            child: DashBoardValueShow(),
+        body: RefreshIndicator(
+      key: refreshKey,
+      onRefresh: ()async {
+        await refresh();
+      },
+      child: Column(
+        children: [
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+              child: DashBoardValueShow(),
+            ),
           ),
-        ),
-        Expanded(
-          flex: 3,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 6.0),
-            child: DashBoardInputShow(),
+          Expanded(
+            flex: 3,
+            child: Padding(
+              padding:
+                  const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 6.0),
+              child: DashBoardInputShow(),
+            ),
           ),
-        ),
-        Expanded(
-          flex: 4,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-            child: DashBoardOutput(),
-          ),
-        )
-      ],
+          Expanded(
+            flex: 4,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+              child: DashBoardOutput(),
+            ),
+          )
+        ],
+      ),
     ));
   }
 }

@@ -21,17 +21,12 @@ class AppData with ChangeNotifier {
     notifyListeners();
   }
 
-
-  void removeAll(){
-    this._totalInc=0;
-    this._totalExp=0;
-    this._incList=[];
-    this._expList=[];
+  void removeAll() {
+    this._totalInc = 0;
+    this._totalExp = 0;
+    this._incList = [];
+    this._expList = [];
   }
-
-
-
-
 
   int get totalIncome => _totalInc;
   int get totalExpenses => _totalExp;
@@ -81,7 +76,7 @@ class AppData with ChangeNotifier {
           headers: {"Authorization": "$token"});
 
       var totalIncData = json.decode(responseTotalInc.body);
-      this.addInc(totalIncData['income'].toString());
+      this.addInc(totalIncData['income']);
 
       notifyListeners();
 
@@ -92,7 +87,7 @@ class AppData with ChangeNotifier {
           headers: {"Authorization": "$token"});
 
       var totalExpData = json.decode(responseTotalExp.body);
-      this.addExp(totalExpData['exp'].toString());
+      this.addExp(totalExpData['exp']);
 
       notifyListeners();
     } catch (error) {

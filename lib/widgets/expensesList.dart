@@ -12,7 +12,11 @@ class _ExpensesListState extends State<ExpensesList> {
     final userProvider = Provider.of<User>(context, listen: false);
     return Consumer<AppData>(builder: (context, expenses, ch) {
       return expenses.expList.length == 0
-          ? Center(child: Text("No Expenses Found!"))
+          ? Center(
+              child: Text(
+              "No Expenses Found!",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ))
           : ListView.builder(
               itemCount: expenses.expList.length,
               itemBuilder: (context, index) {
@@ -35,8 +39,10 @@ class _ExpensesListState extends State<ExpensesList> {
                       ),
                     ),
                     child: IncomeExpensesListContent(
-                        desc: expenses.expList[index].desc,
-                        amount: expenses.expList[index].amount.toString()));
+                      desc: expenses.expList[index].desc,
+                      amount: expenses.expList[index].amount.toString(),
+                      clr: Colors.red,
+                    ));
               });
     });
   }

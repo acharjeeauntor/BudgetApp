@@ -20,7 +20,7 @@ class Income {
     this.v,
   });
 
-  int amount;
+ int amount;
   String id;
   User user;
   String desc;

@@ -16,14 +16,17 @@ class _DashBoardOutputState extends State<DashBoardOutput> {
           child: new Container(
             color: Colors.cyan,
             child: new SafeArea(
-              child: TabBar(tabs: [
-                Tab(
-                  text: 'INCOME',
-                ),
-                Tab(
-                  text: 'EXPENSES',
-                ),
-              ]),
+              child: TabBar(
+                  labelStyle:
+                      TextStyle(fontSize: 20.0, fontWeight: FontWeight.w900),
+                  tabs: [
+                    Tab(
+                      text: 'INCOME',
+                    ),
+                    Tab(
+                      text: 'EXPENSES',
+                    ),
+                  ]),
             ),
           ),
         ),

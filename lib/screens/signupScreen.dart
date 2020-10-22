@@ -1,4 +1,5 @@
 import 'package:budgetapp/helpers/index.dart';
+import 'package:budgetapp/widgets/bouncypageroute.dart';
 import 'package:http/http.dart' as http;
 
 class SignupScreen extends StatefulWidget {
@@ -47,9 +48,8 @@ class _SignupScreenState extends State<SignupScreen> {
         this._confPassword = '';
         this._indicator = false;
       });
-      Navigator.of(context).pushReplacementNamed(
-        SigninScreen.routeName,
-      );
+      Navigator.pushReplacement(
+          context, BouncyPageRoute(widget: SigninScreen(),crv: Curves.easeInBack));
     } else if (responseData['email'].toString().isNotEmpty) {
 //      Fluttertoast.showToast(
 //          msg: "abc",
@@ -164,10 +164,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                       ),
                                       FlatButton(
                                           onPressed: () {
-                                            Navigator.of(context)
-                                                .pushReplacementNamed(
-                                              SigninScreen.routeName,
-                                            );
+                                            Navigator.pushReplacement(
+                                                context, BouncyPageRoute(widget: SigninScreen(),crv: Curves.easeInBack));
                                           },
                                           child: Text(
                                             "SignIn",
