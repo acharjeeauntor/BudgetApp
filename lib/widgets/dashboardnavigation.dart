@@ -46,11 +46,11 @@ class _DashboardNavigationState extends State<DashboardNavigation> {
           onTap: _selectPage,
           items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.category), title: Text('Dashboard')),
+                icon: const Icon(Icons.category), title: const Text('Dashboard')),
             BottomNavigationBarItem(
-                icon: Icon(Icons.insert_drive_file), title: Text('Statement')),
+                icon:const Icon(Icons.insert_drive_file), title:const Text('Statement')),
             BottomNavigationBarItem(
-                icon: Icon(Icons.settings), title: Text('Setting'))
+                icon:const Icon(Icons.settings), title:const Text('Setting'))
           ]),
     );
   }

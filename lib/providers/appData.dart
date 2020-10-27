@@ -9,18 +9,21 @@ class AppData with ChangeNotifier {
   List<Income> _incList = [];
   List<Income> _expList = [];
 
+  // Add Income
   addInc(String value) {
     _totalInc = _totalInc + int.parse(value);
 
     notifyListeners();
   }
 
+  // Add Expenses
   addExp(String value) {
     _totalExp = _totalExp + int.parse(value);
-    print("$value");
+    //print("$value");
     notifyListeners();
   }
 
+//Remove total inc,exp,explist,inclist
   void removeAll() {
     this._totalInc = 0;
     this._totalExp = 0;
@@ -28,9 +31,11 @@ class AppData with ChangeNotifier {
     this._expList = [];
   }
 
+  //get total income and expenses
   int get totalIncome => _totalInc;
   int get totalExpenses => _totalExp;
 
+  //get income and expenses list
   List<Income> get incList {
     return [..._incList.reversed];
   }
@@ -39,6 +44,7 @@ class AppData with ChangeNotifier {
     return [..._expList.reversed];
   }
 
+//Fetch all Data
   Future<void> fetchAndSetAll({String token}) async {
     try {
       //Inc
@@ -76,7 +82,7 @@ class AppData with ChangeNotifier {
           headers: {"Authorization": "$token"});
 
       var totalIncData = json.decode(responseTotalInc.body);
-      this.addInc(totalIncData['income']);
+      this.addInc(totalIncData['income'].toString());
 
       notifyListeners();
 
@@ -87,7 +93,7 @@ class AppData with ChangeNotifier {
           headers: {"Authorization": "$token"});
 
       var totalExpData = json.decode(responseTotalExp.body);
-      this.addExp(totalExpData['exp']);
+      this.addExp(totalExpData['exp'].toString());
 
       notifyListeners();
     } catch (error) {
@@ -95,17 +101,18 @@ class AppData with ChangeNotifier {
     }
   }
 
+//Add Income
   Future<String> addIncome({String desc, String amount, String token}) async {
-    print("desc:$desc");
-    print("amount:$amount");
+    //print("desc:$desc");
+    //print("amount:$amount");
     final url = 'http://10.0.2.2:5000/budget/income';
     try {
       final response = await http.post(url,
           headers: {"Authorization": "$token"},
           body: {"desc": desc, "amount": amount});
       var responseData = json.decode(response.body);
-      print(responseData);
-      print("addncome called");
+      //print(responseData);
+      // print("addncome called");
       if (response.statusCode == 200) {
         //notify income list widget
         _incList.add(Income.fromJson(responseData));
@@ -115,14 +122,15 @@ class AppData with ChangeNotifier {
         return "Server Error";
       }
     } catch (error) {
-      print("error called");
+      // print("error called");
       throw error;
     }
   }
 
+//Add Expenses
   Future<String> addExpenses({String desc, String amount, String token}) async {
-    print("desc:$desc");
-    print("amount:$amount");
+    //print("desc:$desc");
+    // print("amount:$amount");
     final url = 'http://10.0.2.2:5000/budget/exp';
     try {
       final response = await http.post(url,
@@ -138,11 +146,12 @@ class AppData with ChangeNotifier {
         return "Server Error";
       }
     } catch (error) {
-      print("error called");
+      //print("error called");
       throw error;
     }
   }
 
+  //Delete Expenses
   Future<void> deleteExpenses({String id, String token}) async {
     final url = 'http://10.0.2.2:5000/budget/exp/deleteexp/$id';
     try {
@@ -158,11 +167,12 @@ class AppData with ChangeNotifier {
         notifyListeners();
       }
     } catch (error) {
-      print("error called");
+      //print("error called");
       throw error;
     }
   }
 
+  //Delete Income
   Future<void> deleteIncome({String id, String token}) async {
     final url = 'http://10.0.2.2:5000/budget/income/deleteincome/$id';
     try {
@@ -177,7 +187,7 @@ class AppData with ChangeNotifier {
         notifyListeners();
       }
     } catch (error) {
-      print("error called");
+      // print("error called");
       throw error;
     }
   }

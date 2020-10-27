@@ -33,7 +33,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xff474562)),
+                    color: const Color(0xff474562)),
               ),
             ),
             SizedBox(
@@ -49,8 +49,8 @@ class _SettingScreenState extends State<SettingScreen> {
               onTap: () {
                 Navigator.of(context).pushNamed(ChangePasswordScreen.routeName);
               },
-              title: Text('Change Password',
-                  style: TextStyle(fontSize: 18.0, color: Color(0Xff5e5e66))),
+              title: const Text('Change Password',
+                  style: TextStyle(fontSize: 18.0, color:const Color(0Xff5e5e66))),
             ),
             ListTile(
               dense: true,
@@ -60,19 +60,19 @@ class _SettingScreenState extends State<SettingScreen> {
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        title: Text(
+                        title: const Text(
                           "Alert",
                           style: TextStyle(
-                              color: Colors.red, fontWeight: FontWeight.bold),
+                              color:  Colors.red, fontWeight: FontWeight.bold),
                         ),
                         elevation: 1.8,
-                        content: Text("Do you want to Delete Account?"),
+                        content:const Text("Do you want to Delete Account?"),
                         actions: [
                           RaisedButton(
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Text("No"),
+                            child: const Text("No"),
                           ),
                           RaisedButton(
                             onPressed: () {
@@ -80,14 +80,14 @@ class _SettingScreenState extends State<SettingScreen> {
                                   token: userProvider.authToken,
                                   prov: appDataProvider.removeAll);
                             },
-                            child: Text("Yes"),
+                            child: const Text("Yes"),
                           )
                         ],
                       );
                     });
               },
-              title: Text('Delete Account',
-                  style: TextStyle(fontSize: 18.0, color: Color(0Xff5e5e66))),
+              title: const Text('Delete Account',
+                  style: TextStyle(fontSize: 18.0, color:const Color(0Xff5e5e66))),
             ),
             ListTile(
               dense: true,
@@ -95,30 +95,30 @@ class _SettingScreenState extends State<SettingScreen> {
               onTap: () {
                 showShare();
               },
-              title: Text('Share',
-                  style: TextStyle(fontSize: 18.0, color: Color(0Xff5e5e66))),
+              title:const Text('Share',
+                  style: TextStyle(fontSize: 18.0, color: const Color(0Xff5e5e66))),
             ),
             ListTile(
               dense: true,
               contentPadding: EdgeInsets.only(left: 0.0, top: 4, bottom: 0),
-              title: Text('App Version 1.0.0',
+              title:const Text('App Version 1.0.0',
                   style: TextStyle(fontSize: 18.0, color: Colors.black45)),
             ),
             ListTile(
               dense: true,
               contentPadding: EdgeInsets.only(left: 0.0, top: 4, bottom: 0),
-              onTap: () {
+              onTap: () async{
                 //Go to sign in page
                 appDataProvider.removeAll();
                 Navigator.of(context).pushReplacementNamed(
                   SigninScreen.routeName,
                 );
                 //clear SharedPreferences
-//                final pref = await SharedPreferences.getInstance();
-//                await pref.clear();
+                final pref = await SharedPreferences.getInstance();
+                await pref.clear();
               },
-              title: Text('Logout',
-                  style: TextStyle(fontSize: 18.0, color: Color(0Xff5e5e66))),
+              title:const  Text('Logout',
+                  style: TextStyle(fontSize: 18.0, color: const Color(0Xff5e5e66))),
             ),
           ],
         ),

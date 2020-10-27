@@ -48,8 +48,8 @@ class _SignupScreenState extends State<SignupScreen> {
         this._confPassword = '';
         this._indicator = false;
       });
-      Navigator.pushReplacement(
-          context, BouncyPageRoute(widget: SigninScreen(),crv: Curves.easeInBack));
+      Navigator.pushReplacement(context,
+          BouncyPageRoute(widget: SigninScreen(), crv: Curves.easeInBack));
     } else if (responseData['email'].toString().isNotEmpty) {
 //      Fluttertoast.showToast(
 //          msg: "abc",
@@ -65,14 +65,15 @@ class _SignupScreenState extends State<SignupScreen> {
       Toast.show(responseData['email'].toString(), context,
           duration: Toast.LENGTH_LONG,
           gravity: Toast.TOP,
-          backgroundColor: const Color(0xff8c0000));
+          textColor: Colors.black45,
+          backgroundColor: const Color(0xff2980B9));
     }
   }
 
   @override
   Widget build(BuildContext context) {
 //    var MQ = MediaQuery.of(context);
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       //resizeToAvoidBottomPadding: false,
@@ -145,7 +146,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   child: RaisedButton(
                                     color: containerColor,
                                     onPressed: handleSubmit,
-                                    child: Text(
+                                    child: const Text(
                                       "SignUp",
                                       style: TextStyle(
                                         fontSize: 17.0,
@@ -158,14 +159,17 @@ class _SignupScreenState extends State<SignupScreen> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
+                                      const Text(
                                         "Already a member?",
                                         style: TextStyle(fontSize: 17),
                                       ),
                                       FlatButton(
                                           onPressed: () {
                                             Navigator.pushReplacement(
-                                                context, BouncyPageRoute(widget: SigninScreen(),crv: Curves.easeInBack));
+                                                context,
+                                                BouncyPageRoute(
+                                                    widget: SigninScreen(),
+                                                    crv: Curves.easeInBack));
                                           },
                                           child: Text(
                                             "SignIn",

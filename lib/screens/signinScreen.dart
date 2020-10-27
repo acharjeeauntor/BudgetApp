@@ -44,7 +44,7 @@ class _SigninScreenState extends State<SigninScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+   // Size size = MediaQuery.of(context).size;
     final userProvider = Provider.of<User>(context, listen: false);
 
     void handleSubmit() async {
@@ -56,8 +56,8 @@ class _SigninScreenState extends State<SigninScreen> {
         });
       }
 
-      print(_email);
-      print(_password);
+      //print(_email);
+     // print(_password);
 
       // post request
 
@@ -84,7 +84,9 @@ class _SigninScreenState extends State<SigninScreen> {
 
         //Page Route Builder
         Navigator.pushReplacement(
-            context, BouncyPageRoute(widget: DashboardNavigation(),crv: Curves.easeInOut));
+            context,
+            BouncyPageRoute(
+                widget: DashboardNavigation(), crv: Curves.easeInOut));
       } else if (response.statusCode == 404) {
         setState(() {
           _indicator = false;
@@ -92,7 +94,8 @@ class _SigninScreenState extends State<SigninScreen> {
         Toast.show("invalid Email Or Password", context,
             duration: Toast.LENGTH_LONG,
             gravity: Toast.TOP,
-            backgroundColor: const Color(0xffEC7063));
+            textColor: Colors.black45,
+            backgroundColor: const Color(0xff2980B9));
       }
     }
 
@@ -148,7 +151,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                         right: 10, top: 10, bottom: 10),
                                     child: Align(
                                       alignment: Alignment.bottomRight,
-                                      child: Text(
+                                      child:  Text(
                                         "Forget Password?",
                                         style:
                                             TextStyle(color: Colors.grey[600]),
@@ -164,7 +167,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                   child: RaisedButton(
                                     color: containerColor,
                                     onPressed: handleSubmit,
-                                    child: Text(
+                                    child:const Text(
                                       "SignIn",
                                       style: TextStyle(
                                         fontSize: 17.0,
@@ -173,18 +176,22 @@ class _SigninScreenState extends State<SigninScreen> {
                                   ),
                                 ),
                                 Container(
-                                  margin: EdgeInsets.only(top: 15),
+                                  margin: const EdgeInsets.only(top: 15),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
+                                      const Text(
                                         "Don't have an account?",
                                         style: TextStyle(fontSize: 17),
                                       ),
                                       FlatButton(
                                           onPressed: () {
                                             Navigator.pushReplacement(
-                                                context, BouncyPageRoute(widget: SignupScreen(),crv: Curves.linearToEaseOut));
+                                                context,
+                                                BouncyPageRoute(
+                                                    widget: SignupScreen(),
+                                                    crv: Curves
+                                                        .linearToEaseOut));
                                           },
                                           child: Text(
                                             "SignUp",
@@ -196,7 +203,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                   ),
                                 ),
                                 Container(
-                                  margin: EdgeInsets.only(top: 10),
+                                  margin: const EdgeInsets.only(top: 10),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
@@ -247,7 +254,7 @@ class _SigninScreenState extends State<SigninScreen> {
 
 addStringToSF(String token) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setString(token, "jwtToken");
+  prefs.setString(token, "tokenKey");
 }
 
 //getStringValuesSF() async {

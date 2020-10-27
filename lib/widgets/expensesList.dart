@@ -13,7 +13,7 @@ class _ExpensesListState extends State<ExpensesList> {
     return Consumer<AppData>(builder: (context, expenses, ch) {
       return expenses.expList.length == 0
           ? Center(
-              child: Text(
+              child: const Text(
               "No Expenses Found!",
               style: TextStyle(fontWeight: FontWeight.bold),
             ))
@@ -32,7 +32,7 @@ class _ExpensesListState extends State<ExpensesList> {
                     key: Key(expenses.expList[index].id),
                     background: ListTile(
                       tileColor: Colors.red,
-                      trailing: Icon(
+                      trailing: const Icon(
                         Icons.delete,
                         color: Colors.white,
                         size: 35.0,

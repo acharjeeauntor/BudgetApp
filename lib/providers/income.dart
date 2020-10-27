@@ -1,5 +1,4 @@
 // To parse this JSON data, do
-//
 //     final income = incomeFromJson(jsonString);
 
 import 'dart:convert';

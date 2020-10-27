@@ -25,7 +25,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         body: {"email": _email});
 
     var responseData = json.decode(response.body);
-    print(responseData);
+    //print(responseData);
 
     if (response.statusCode == 200) {
       setState(() {
@@ -40,7 +40,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       Toast.show(responseData['email'].toString(), context,
           duration: Toast.LENGTH_LONG,
           gravity: Toast.TOP,
-          backgroundColor: const Color(0xff8c0000));
+          textColor: Colors.red,
+          backgroundColor: const Color(0xff2980B9));
     }
   }
 

@@ -27,8 +27,8 @@ class _DashBoardInputShowState extends State<DashBoardInputShow> {
       } else {
         if (_type == 0) {
           // post request
-          print("handle called");
-          print(_descController.text);
+          //print("handle called");
+          //print(_descController.text);
           await appDataProvider
               .addIncome(
                   desc: _descController.text,

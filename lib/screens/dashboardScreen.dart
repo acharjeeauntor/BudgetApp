@@ -39,7 +39,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final appDataProvider = Provider.of<AppData>(context, listen: false);
 
     Future<Null> refresh() async {
-      print("Refresh Called");
+      // print("Refresh Called");
       await appDataProvider.fetchAndSetAll(token: userProvider.authToken);
       return null;
     }
@@ -47,7 +47,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
         body: RefreshIndicator(
       key: refreshKey,
-      onRefresh: ()async {
+      onRefresh: () async {
         await refresh();
       },
       child: Column(

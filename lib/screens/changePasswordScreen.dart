@@ -70,16 +70,16 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           _indicator = false;
         });
         Toast.show(responseData['oldPassword'], context,
-            textColor: Colors.white,
             duration: Toast.LENGTH_LONG,
             gravity: Toast.TOP,
-            backgroundColor: const Color(0xffEC7063));
+            textColor: Colors.red,
+            backgroundColor: const Color(0xff2980B9));
       }
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Change Password"),
+        title: const Text("Change Password"),
       ),
       body: _indicator
           ? Center(
@@ -133,7 +133,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           child: RaisedButton(
                             color: containerColor,
                             onPressed: handleSubmit,
-                            child: Text(
+                            child: const Text(
                               "Change Password",
                               style: TextStyle(
                                 fontSize: 17.0,

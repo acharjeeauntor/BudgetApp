@@ -32,7 +32,7 @@ class _IncomeListState extends State<IncomeList> {
                       key: UniqueKey(),
                       background: ListTile(
                         tileColor: Colors.red,
-                        leading: Icon(
+                        leading: const Icon(
                           Icons.delete,
                           color: Colors.white,
                           size: 35.0,
