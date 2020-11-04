@@ -2,15 +2,9 @@
 
 A Budget Monitoring Application
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+See More In this Video: [Budget App](https://youtu.be/ULgoTkgsG3Y)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![1](https://user-images.githubusercontent.com/38497405/98105187-c9514500-1ec1-11eb-9381-a12cee0bc24f.PNG)
+![2](https://user-images.githubusercontent.com/38497405/98105195-cb1b0880-1ec1-11eb-811c-0bbcab15b337.PNG)
+![3](https://user-images.githubusercontent.com/38497405/98105200-cc4c3580-1ec1-11eb-82b6-685dee4cdfa1.PNG)
